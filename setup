@@ -1,0 +1,25 @@
+#!/bin/bash
+
+DOTFILES_DIR="$HOME/Developer/github.com/mkzaborowski/dotfiles"
+XDG_CONFIG_HOME="$HOME/.config"
+
+create_directories() {
+  mkdir -p "$HOME/Developer/github.com/mkzaborowski"
+  mkdir -p "$XDG_CONFIG_HOME"
+
+  local directories=("$@")
+  for dir in "${directories[@]}; do
+    mkdir -p "$dir"
+  done
+}
+
+if [[ "$OSTYPE" == darwin* ]]; then
+  macos_directories=(
+    "$HOME/.qutebrowser"
+  )
+  macos_items=(
+    "qutebrowser/config.py:$HOME/.qutebrowser/config.py"
+  )
+  create_directories "${macos_directories[@]}"
+  create_symlinks "${macos_items[@]}"
+fi
